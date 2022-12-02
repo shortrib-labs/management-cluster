@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: flux-system
+  name: management-cluster
   namespace: flux-system
 spec:
   interval: 1m0s
@@ -20,8 +20,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./base
+  path: ./base/flux-system
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: management-cluster
