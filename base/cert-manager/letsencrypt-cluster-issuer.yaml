@@ -1,14 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"cert-manager.io/v1","kind":"ClusterIssuer","metadata":{"annotations":{},"name":"letsencrypt-contour-cluster-issuer"},"spec":{"acme":{"email":"chuck@crdant.io","privateKeySecretRef":{"name":"acme-account-key"},"server":"https://acme-v02.api.letsencrypt.org/directory","solvers":[{"dns01":{"cloudDNS":{"project":"shortrib","serviceAccountSecretRef":{"key":"credentials.json","name":"gcloud-dns-service-account"}}}}]}}}
-  creationTimestamp: "2022-11-07T15:33:22Z"
-  generation: 2
   name: letsencrypt-contour-cluster-issuer
-  resourceVersion: "39555"
-  uid: 051ae4e9-0771-4133-b9d1-c01265fdd926
 spec:
   acme:
     email: chuck@crdant.io
@@ -23,14 +16,3 @@ spec:
             key: api-key
             name: cloudflare-api-key-secret
           email: crdant@shortrib.io
-status:
-  acme:
-    lastRegisteredEmail: chuck@crdant.io
-    uri: https://acme-v02.api.letsencrypt.org/acme/acct/813114147
-  conditions:
-  - lastTransitionTime: "2022-11-07T15:33:22Z"
-    message: The ACME account was registered with the ACME server
-    observedGeneration: 2
-    reason: ACMEAccountRegistered
-    status: "True"
-    type: Ready
