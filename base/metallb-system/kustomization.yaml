@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - metallb-config.yaml
 - metallb-native.yaml
+- sync.yaml
