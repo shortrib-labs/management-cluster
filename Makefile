@@ -9,6 +9,8 @@ kurl_yaml		:= $$(yq '.spec.kubernetes.clusterName="$(hostname)"' kurl-installer.
 
 vip_range   := $(shell yq .cluster.kuppvip_cidr $(params_yaml))
 
+sync_files  := $(shell find base -name gotk-sync.yaml -o -name sync.yaml -o -name namespace.yaml)
+
 define TFVARS
 hostname				 = "$(hostname)"
 domain					 = "$(shell yq e .domain $(params_yaml))"
@@ -51,6 +53,14 @@ $(tfvars): $(params_yaml)
 .PHONY: init
 init: $(tfvars)
 	@(cd $(SOURCE_DIR)/terraform && terraform init)
+
+.PHONY: all
+all: create bootstrap 
+
+.PHONY: bootstrap
+bootstrap: $(sync_Files)
+	@kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
+	@cat $(sync_files) | kubectl apply -f - 
 
 .PHONY: create
 create: init test cluster 
