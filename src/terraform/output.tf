@@ -9,4 +9,10 @@ output "node_ip" {
 
 output "join_script" {
   value     = data.external.join_script.result["script"]
+  sensitive = true
+}
+
+output "kubeconfig" {
+  value     = data.external.kubeconfig.result["config"]
+  sensitive = true
 }
