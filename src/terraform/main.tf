@@ -137,6 +137,7 @@ resource "vsphere_virtual_machine" "control_plane" {
 data "external" "join_script" {
   program = [
     "ssh",
+    "-oStrictHostKeyChecking=no",
     vsphere_virtual_machine.control_plane.default_ip_address,
     "bash /tmp/join_script_data_source.sh"
   ]
