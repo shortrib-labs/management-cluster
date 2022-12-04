@@ -1,0 +1,14 @@
+apiVersion: "cluster.kurl.sh/v1beta1"
+kind: "Installer"
+metadata: 
+  name: management-cluster
+spec: 
+  kubernetes: 
+    version: "1.25.x"
+  antrea: 
+    version: "1.4.x"
+  containerd: 
+    version: "1.6.x"
+  ekco: 
+    version: "latest"
+

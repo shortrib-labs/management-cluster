@@ -1,0 +1,6 @@
+#@data/values-schema
+---
+hostname: ""
+domain: ""
+ssh:
+  authorized_key: ""
