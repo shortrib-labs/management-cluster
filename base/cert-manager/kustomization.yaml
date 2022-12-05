@@ -6,3 +6,10 @@ resources:
 - letsencrypt-cluster-issuer.yaml
 - namespace.yaml
 - sync.yaml
+patchesStrategicMerge:
+- |-
+  $patch: delete
+  apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: cert-manager
