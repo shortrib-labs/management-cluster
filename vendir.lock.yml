@@ -1,0 +1,25 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - helmChart:
+      appVersion: v1.10.1
+      version: v1.10.1
+    path: .
+  path: base/cert-manager/upstream
+- contents:
+  - git:
+      commitTitle: Update Contour Docker image to v1.23.0....
+      sha: 4520248139257c38e0e12498c2aedbf811b69950
+      tags:
+      - v1.23.0
+    path: .
+  path: base/projectcontour/upstream
+- contents:
+  - git:
+      commitTitle: Automated update for release v0.13.7
+      sha: b96bce642175ec99ed4b3e29e552c2e4f7aeaafd
+      tags:
+      - v0.13.7
+    path: .
+  path: base/metallb-system/upstream
+kind: LockConfig
