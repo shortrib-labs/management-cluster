@@ -7,9 +7,10 @@ params_yaml := $(SECRETS_DIR)/params.yaml
 hostname		?= $(shell yq .hostname $(params_yaml))
 kurl_yaml		:= $$(yq '.spec.kubernetes.clusterName="$(hostname)"' kurl-installer.yaml)
 
-vip_range   := $(shell yq .cluster.kuppvip_cidr $(params_yaml))
+namespaces       := $(shell ls -1 base)
+bootstrap_files  := $(shell find base -name "*sync.yaml")
 
-sync_files  := $(shell find base -name gotk-sync.yaml -o -name sync.yaml -o -name namespace.yaml)
+key_fp  := FAC1CF820538F4A07C8F4657DAD5DC6A21303194
 
 define TFVARS
 hostname				 = "$(hostname)"
@@ -57,13 +58,30 @@ init: $(tfvars)
 .PHONY: all
 all: create bootstrap 
 
+.PHONY: namespaces
+namespaces: $(namespaces) 
+
+.PHONY: $(namespaces)
+$(namespaces):
+	@kubectl create namespace $@ --dry-run=client -o yaml --save-config | kubectl apply -f -
+	@gpg --export-secret-keys --armor $(key_fp) \
+			| kubectl create secret generic sops-gpg \
+					--namespace=$@ \
+					--from-file=sops.asc=/dev/stdin \
+					--dry-run=client \
+					--output=yaml \
+					--save-config \
+			| kubectl apply -f -
+
 .PHONY: bootstrap
-bootstrap: $(sync_Files)
-	@kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
-	@cat $(sync_files) | kubectl apply -f - 
+bootstrap: $(bootstrap_files)
+
+.PHONY: $(bootstrap_files)
+$(bootstrap_files):
+	@kubectl apply -f $@
 
 .PHONY: create
-create: init test cluster 
+create: init test cluster namespaces bootstrap
 
 .PHONY: cluster
 cluster: $(tfvars) init
