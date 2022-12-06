@@ -12,7 +12,7 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          apiKeySecretRef:
+          apiTokenSecretRef:
             key: api-key
             name: cloudflare-api-key-secret
           email: crdant@shortrib.io
