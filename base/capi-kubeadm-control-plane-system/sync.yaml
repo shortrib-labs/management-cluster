@@ -1,0 +1,19 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: capi-kubeadm-control-plane-system
+  namespace: capi-kubeadm-control-plane-system
+  labels:
+    kustomize.toolkit.fluxcd.io/name: capi-kubeadm-control-plane-system
+    kustomize.toolkit.fluxcd.io/namespace: capi-kubeadm-control-plane-system
+  finalizers:
+  - finalizers.fluxcd.io
+spec:
+  force: false
+  interval: 10m0s
+  path: ./base/capi-kubeadm-control-plane-system
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: management-cluster
+    namespace: flux-system
