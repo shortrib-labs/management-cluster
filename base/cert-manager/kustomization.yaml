@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
 - cloudflare-api-key-secret.yaml
 - letsencrypt-cluster-issuer.yaml
-- namespace.yaml
 - sync.yaml
 - upstream/cert-manager.yaml
