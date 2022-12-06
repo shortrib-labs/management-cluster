@@ -4,3 +4,4 @@ resources:
 - metallb-config.yaml
 - namespace.yaml
 - sync.yaml
+- upstream/metallb-native.yaml
