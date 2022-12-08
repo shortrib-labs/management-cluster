@@ -58,8 +58,8 @@ init: $(tfvars)
 .PHONY: all
 all: create bootstrap 
 
-.PHONY: namespaces
-namespaces: $(namespaces) 
+.PHONY: bootstrap
+bootstrap: $(namespaces) $(bootstrap_files)
 
 .PHONY: $(namespaces)
 $(namespaces):
@@ -73,15 +73,12 @@ $(namespaces):
 					--save-config \
 			| kubectl apply -f -
 
-.PHONY: bootstrap
-bootstrap: $(bootstrap_files)
-
 .PHONY: $(bootstrap_files)
 $(bootstrap_files):
 	@kubectl apply -f $@
 
 .PHONY: create
-create: init test cluster namespaces bootstrap
+create: init test cluster 
 
 .PHONY: cluster
 cluster: $(tfvars) init
