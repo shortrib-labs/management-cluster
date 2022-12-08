@@ -5,10 +5,10 @@ metadata:
 spec: 
   kubernetes: 
     version: "1.25.x"
+    cisCompliance: true
   antrea: 
     version: "1.4.x"
   containerd: 
     version: "1.6.x"
   ekco: 
     version: "latest"
-
