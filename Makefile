@@ -7,6 +7,9 @@ params_yaml := $(SECRETS_DIR)/params.yaml
 hostname		?= $(shell yq .hostname $(params_yaml))
 kurl_yaml		:= $$(yq '.spec.kubernetes.clusterName="$(hostname)"' kurl-installer.yaml)
 
+vsphere_username := "$(shell yq .vsphere.username $(params_yaml))"
+vsphere_password := "$(shell sops --decrypt --extract '["vsphere"]["password"]' $(params_yaml))"
+
 namespaces       := $(shell ls -1 base)
 bootstrap_files  := $(shell find base -name "*sync.yaml")
 
@@ -83,6 +86,8 @@ create: init test cluster
 .PHONY: cluster
 cluster: $(tfvars) init
 	@(cd $(SOURCE_DIR)/terraform && terraform apply -var-file $(tfvars) --auto-approve)
+	VSPHERE_USERNAME=$(vpshere_username) VSPHERE_PASSWORD=$(vsphere_password) clusterctl init --infrastructure vsphere
+
 
 .PHONY: test
 test: $(tfvars)
