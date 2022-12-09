@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
 - cluster.yaml
 - namespace.yaml
+- baseline.yaml
 - sync.yaml
