@@ -10,5 +10,5 @@ spec:
   ref:
     branch: feature-baseline
   secretRef:
-    name: flux-system
+    name: cluster-deploy-key
   url: ssh://git@github.com/shortrib-labs/cluster

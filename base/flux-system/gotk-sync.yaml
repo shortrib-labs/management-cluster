@@ -10,7 +10,7 @@ spec:
   ref:
     branch: feature-shared-services
   secretRef:
-    name: flux-system
+    name: management-deploy-key
   url: ssh://git@github.com/shortrib-labs/management-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
