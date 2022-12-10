@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: feature-baseline
+    branch: main
   secretRef:
     name: cluster-deploy-key
   url: ssh://git@github.com/shortrib-labs/cluster

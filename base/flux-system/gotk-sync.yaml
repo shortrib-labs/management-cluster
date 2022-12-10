@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: feature-shared-services
+    branch: main
   secretRef:
     name: management-deploy-key
   url: ssh://git@github.com/shortrib-labs/management-cluster
