@@ -6,3 +6,5 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - management-deploy-key.yaml
+- services-deploy-key.yaml
+- shared-services-repository.yaml
